@@ -1,0 +1,1 @@
+python3 ergo.py Bicicleta_5_4_VO2máx_320_340_W_.fit  --hr "Decathlon Dual HR" --ftp 282 --trainer "Think XX01-1007406"   --overlay
