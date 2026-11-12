@@ -1,0 +1,7 @@
+.aws
+.codex
+.agents
+venv*
+__*
+*.fit
+*.mkv
