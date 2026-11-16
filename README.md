@@ -27,6 +27,8 @@ Os botões −/+ ajustam o objetivo em 5 W (também funcionam as teclas quando a
 barra tem foco). Em treino livre, o primeiro ajuste ativa um objetivo de potência.
 Num FIT, o ajuste aplica-se ao bloco atual; o seguinte usa o objetivo do ficheiro.
 Esc, botão direito e «Menu» abrem as opções continuar, pausar ou terminar e guardar.
+Se a barra tapar os controlos de áudio ou legendas do filme, clica em «Mover para
+baixo». «Mover para cima» volta a colocá-la no topo. Mover a barra não pausa o treino.
 Abrir o menu não pausa: usa «Pausar treino». A pausa manual retira o alvo de
 potência, suspende o tempo e a gravação; continuar repõe o objetivo.
 Nos treinos FIT aparece também um perfil em escadinhas, com a largura de cada

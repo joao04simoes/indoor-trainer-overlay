@@ -189,6 +189,7 @@ class DesktopOverlay:
         self.app = application()
         self.controls = {'paused': False, 'stop': False, 'delta': 0}
         self.menu = None
+        self.at_bottom = False
 
         class Window(W.QWidget):
             def closeEvent(window, event):
@@ -239,6 +240,10 @@ class DesktopOverlay:
         self.details.setSizePolicy(W.QSizePolicy.Ignored, W.QSizePolicy.Preferred)
         self.details.setStyleSheet('font-size: 14px; color: #b6c6d9')
         bottom.addWidget(self.details, 1)
+        self.position_button = W.QPushButton('Mover para baixo')
+        self.position_button.setToolTip('Libertar os controlos do filme, sem pausar o treino')
+        self.position_button.clicked.connect(self.toggle_position)
+        bottom.addWidget(self.position_button)
         for caption, action in (('− 5 W', lambda: self.adjust(-5)), ('+ 5 W', lambda: self.adjust(5)), ('Menu / Esc', self.open_menu)):
             button = W.QPushButton(caption)
             button.clicked.connect(action)
@@ -254,6 +259,16 @@ class DesktopOverlay:
 
     def adjust(self, delta):
         self.controls['delta'] += delta
+
+    def toggle_position(self):
+        self.at_bottom = not self.at_bottom
+        self.position_button.setText('Mover para cima' if self.at_bottom else 'Mover para baixo')
+        self.position_bar()
+
+    def position_bar(self):
+        screen = self.app.primaryScreen().geometry()
+        y = screen.y() + screen.height() - self.root.height() if self.at_bottom else screen.y()
+        self.root.move(screen.x(), y)
 
     def open_menu(self):
         _, _, W = qt()
@@ -302,6 +317,7 @@ class DesktopOverlay:
         profile = s.get('profile', [])
         self.profile.set_session(profile, s['elapsed'])
         self.root.setFixedHeight(160 if profile else 120)
+        self.position_bar()
         status = 'PAUSA MANUAL' if self.controls['paused'] else 'PAUSA · pedala para continuar' if s['paused'] else s['name']
         remaining = mmss(s['remaining']) if s['remaining'] is not None else 'sem limite'
         total_left = mmss(max(0, s['total'] - s['elapsed'])) if s['total'] is not None else 'sem limite'
